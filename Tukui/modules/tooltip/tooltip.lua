@@ -31,7 +31,10 @@ anchor:SetFrameStrata("TOOLTIP")
 anchor:SetFrameLevel(20)
 anchor:SetClampedToScreen(true)
 anchor:SetAlpha(0)
-if C.chat.background and TukuiChatBackgroundRight then
+
+if T.verticalrightbar and not T.lowversion then
+	anchor:SetPoint("BOTTOM", TukuiBar5, "TOP", 0, 0)
+elseif C.chat.background and TukuiChatBackgroundRight then
 	anchor:SetPoint("BOTTOMRIGHT", TukuiChatBackgroundRight, "TOPRIGHT", 0, -TukuiInfoRight:GetHeight())
 else
 	anchor:SetPoint("BOTTOMRIGHT", TukuiInfoRight)
@@ -82,7 +85,7 @@ local function UpdateTooltip(self)
 	
 	if self:GetAnchorType() == "ANCHOR_NONE" and TukuiTooltipAnchor then
 		local point = TukuiTooltipAnchor:GetPoint()
-		if point == "TOPLEFT" then
+		--[[if point == "TOPLEFT" then
 			self:ClearAllPoints()
 			self:SetPoint("TOPLEFT", TukuiTooltipAnchor, "BOTTOMLEFT", 0, -x)			
 		elseif point == "TOP" then
@@ -95,17 +98,23 @@ local function UpdateTooltip(self)
 			self:ClearAllPoints()
 			self:SetPoint("BOTTOMLEFT", TukuiTooltipAnchor, "TOPLEFT", 0, x)		
 		elseif point == "BOTTOMRIGHT" or point == "RIGHT" then
+		]]--
 			if TukuiBags and TukuiBags:IsShown() then
 				self:ClearAllPoints()
 				self:SetPoint("BOTTOMRIGHT", TukuiBags, "TOPRIGHT", 0, x)			
 			else
 				self:ClearAllPoints()
-				self:SetPoint("BOTTOMRIGHT", TukuiTooltipAnchor, "TOPRIGHT", 0, x)
+				if T.verticalrightbar and not T.lowversion and TukuiPetBar:IsVisible() then
+					self:SetPoint("BOTTOM", TukuiTooltipAnchor, "TOP", 0, x + TukuiPetBar:GetHeight() -2)
+				else
+					self:SetPoint("BOTTOM", TukuiTooltipAnchor, "TOP", 0, x)
+				end
 			end
-		else
+		--[[else
 			self:ClearAllPoints()
 			self:SetPoint("BOTTOM", TukuiTooltipAnchor, "TOP", 0, x)		
 		end
+		]]--
 	end
 end
 

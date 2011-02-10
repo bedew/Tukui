@@ -2,7 +2,7 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 -- This is the file for our action bars settings in game via mouseover buttons around action bars.
 -- I really hope you'll understand the code, because I was totally drunk when I wrote this file.
 -- At least, it work fine. :P (lol)
-
+--[[
 local function ShowOrHideBar(bar, button)
 	local db = TukuiDataPerChar
 	
@@ -327,3 +327,5 @@ init:SetScript("OnEvent", function(self, event)
 		DrPepper(TukuiBar5ButtonTop, TukuiBar5)
 	end
 end)
+
+]]--

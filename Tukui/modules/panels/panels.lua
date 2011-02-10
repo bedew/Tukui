@@ -29,30 +29,55 @@ TukuiBar4:SetFrameStrata("BACKGROUND")
 TukuiBar4:SetFrameLevel(2)
 
 local TukuiBar5 = CreateFrame("Frame", "TukuiBar5", UIParent)
-TukuiBar5:CreatePanel("Default", 1, (T.buttonsize * 12) + (T.buttonspacing * 13), "RIGHT", UIParent, "RIGHT", -23, -14)
-TukuiBar5:SetWidth((T.buttonsize * 1) + (T.buttonspacing * 2))
+if not T.lowversion and T.verticalrightbar then 
+	TukuiBar5:CreatePanel("Default", (T.buttonsize * 12) + (T.buttonspacing * 13), 1, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -23, 188)
+	TukuiBar5:SetHeight((T.buttonsize * 1) + (T.buttonspacing * 2))
+else
+	TukuiBar5:CreatePanel("Default", 1, (T.buttonsize * 12) + (T.buttonspacing * 13), "RIGHT", UIParent, "RIGHT", -23, -14)
+	TukuiBar5:SetWidth((T.buttonsize * 1) + (T.buttonspacing * 2))
+end
 TukuiBar5:SetFrameStrata("BACKGROUND")
 TukuiBar5:SetFrameLevel(2)
 
 local TukuiBar6 = CreateFrame("Frame", "TukuiBar6", UIParent)
-TukuiBar6:SetWidth((T.buttonsize * 1) + (T.buttonspacing * 2))
-TukuiBar6:SetHeight((T.buttonsize * 12) + (T.buttonspacing * 13))
-TukuiBar6:SetPoint("LEFT", TukuiBar5, "LEFT", 0, 0)
+if not T.lowversion and T.verticalrightbar then 
+	TukuiBar6:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
+	TukuiBar6:SetHeight((T.buttonsize * 1) + (T.buttonspacing * 2))
+	TukuiBar6:SetPoint("BOTTOM", TukuiBar5, "TOP", 0, 0)	
+else
+	TukuiBar6:SetWidth((T.buttonsize * 1) + (T.buttonspacing * 2))
+	TukuiBar6:SetHeight((T.buttonsize * 12) + (T.buttonspacing * 13))
+	TukuiBar6:SetPoint("LEFT", TukuiBar5, "LEFT", 0, 0)
+end
 TukuiBar6:SetFrameStrata("BACKGROUND")
 TukuiBar6:SetFrameLevel(2)
 
 local TukuiBar7 = CreateFrame("Frame", "TukuiBar7", UIParent)
-TukuiBar7:SetWidth((T.buttonsize * 1) + (T.buttonspacing * 2))
-TukuiBar7:SetHeight((T.buttonsize * 12) + (T.buttonspacing * 13))
-TukuiBar7:SetPoint("TOP", TukuiBar5, "TOP", 0 , 0)
+if not T.lowversion and T.verticalrightbar then 
+	TukuiBar7:SetHeight((T.buttonsize * 1) + (T.buttonspacing * 2))
+	TukuiBar7:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
+	TukuiBar7:SetPoint("BOTTOM", TukuiBar5, "TOP", 0, (T.buttonsize * 1) + (T.buttonspacing * 2))
+else
+	TukuiBar7:SetWidth((T.buttonsize * 1) + (T.buttonspacing * 2))
+	TukuiBar7:SetHeight((T.buttonsize * 12) + (T.buttonspacing * 13))
+	TukuiBar7:SetPoint("TOP", TukuiBar5, "TOP", 0 , 0)
+end
 TukuiBar7:SetFrameStrata("BACKGROUND")
 TukuiBar7:SetFrameLevel(2)
 
 local petbg = CreateFrame("Frame", "TukuiPetBar", UIParent, "SecureHandlerStateTemplate")
-petbg:CreatePanel("Default", T.petbuttonsize + (T.petbuttonspacing * 2), (T.petbuttonsize * 10) + (T.petbuttonspacing * 11), "RIGHT", TukuiBar5, "LEFT", -6, 0)
+if not T.lowversion and T.verticalrightbar then 
+	petbg:CreatePanel("Default", (T.petbuttonsize * 10) + (T.petbuttonspacing * 11), T.petbuttonsize + (T.petbuttonspacing * 2), "BOTTOM", TukuiBar5, "TOP", 0, 6)
+else
+	petbg:CreatePanel("Default", T.petbuttonsize + (T.petbuttonspacing * 2), (T.petbuttonsize * 10) + (T.petbuttonspacing * 11), "RIGHT", TukuiBar5, "LEFT", -6, 0)
+end
 
 local ltpetbg1 = CreateFrame("Frame", "TukuiLineToPetActionBarBackground", petbg)
-ltpetbg1:CreatePanel("Default", 24, 265, "LEFT", petbg, "RIGHT", 0, 0)
+if not T.lowversion and T.verticalrightbar then 
+	-- ltpetbg1:CreatePanel("Default", 265, 24, "TOP", petbg, "CENTER", 0, 0)
+else
+	ltpetbg1:CreatePanel("Default", 24, 265, "LEFT", petbg, "RIGHT", 0, 0)
+end
 ltpetbg1:SetParent(petbg)
 ltpetbg1:SetFrameStrata("BACKGROUND")
 ltpetbg1:SetFrameLevel(0)

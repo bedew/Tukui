@@ -3,8 +3,8 @@
 C["general"] = {
 	["autoscale"] = true,                               -- mainly enabled for users that don't want to mess with the config file
 	["uiscale"] = 0.71,                                 -- set your value (between 0.64 and 1) of your uiscale if autoscale is off
-	["overridelowtohigh"] = false,                      -- EXPERIMENTAL ONLY! override lower version to higher version on a lower reso.
-	["multisampleprotect"] = true,                      -- i don't recommend this because of shitty border but, voila!
+	["overridelowtohigh"] = true,                      -- EXPERIMENTAL ONLY! override lower version to higher version on a lower reso.
+	["multisampleprotect"] = false,                      -- i don't recommend this because of shitty border but, voila!
 }
 
 C["unitframes"] = {
@@ -69,6 +69,7 @@ C["actionbar"] = {
 	["buttonsize"] = 27,                                -- normal buttons size
 	["petbuttonsize"] = 29,                             -- pet & stance buttons size
 	["buttonspacing"] = 4,                              -- buttons spacing
+	["verticalrightbar"] = true,						-- Shows Bar5 in vertical view, only for HighRes
 }
 
 C["bags"] = {

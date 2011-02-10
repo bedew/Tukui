@@ -18,6 +18,8 @@ for i= 1, 12 do
 	
 	if i == 1 then
 		b:SetPoint("TOPRIGHT", bar, -T.buttonspacing, -T.buttonspacing)
+	elseif T.verticalrightbar and not T.lowversion then
+		b:SetPoint("RIGHT", b2, "LEFT", -T.buttonspacing, 0)
 	else
 		b:SetPoint("TOP", b2, "BOTTOM", 0, -T.buttonspacing)
 	end

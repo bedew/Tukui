@@ -33,6 +33,8 @@ bar:SetScript("OnEvent", function(self, event, arg1)
 			button:SetSize(T.petbuttonsize, T.petbuttonsize)
 			if i == 1 then
 				button:SetPoint("TOPLEFT", T.buttonspacing,-T.buttonspacing)
+			elseif T.verticalrightbar and not T.lowversion then
+				button:SetPoint("LEFT", _G["PetActionButton"..(i - 1)], "RIGHT", T.buttonspacing, 0)
 			else
 				button:SetPoint("TOP", _G["PetActionButton"..(i - 1)], "BOTTOM", 0, -T.buttonspacing)
 			end
