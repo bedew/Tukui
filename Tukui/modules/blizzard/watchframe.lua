@@ -22,7 +22,7 @@ TukuiWatchFrameAnchor.text:SetText(L.move_watchframe)
 TukuiWatchFrameAnchor.text:Hide()
 
 -- set default position according to how many right bars we have
-TukuiWatchFrameAnchor:SetPoint("TOPLEFT", UIParent,  "TOPLEFT", T.Scale(10), -T.Scale(15))
+TukuiWatchFrameAnchor:SetPoint("TOPLEFT", UIParent,  "TOPLEFT", T.Scale(0), -T.Scale(0))
 
 -- width of the watchframe according to our Blizzard cVar.
 if wideFrame == "1" then
@@ -65,12 +65,14 @@ local function setup()
 	WatchFrame:SetClampedToScreen(false)
 	WatchFrame:ClearAllPoints()
 	WatchFrame.ClearAllPoints = function() end
-	WatchFrame:SetPoint("TOPLEFT", 32,-2.5)
+	WatchFrame:SetPoint("TOPLEFT", 32,-8)
 	WatchFrame:SetPoint("BOTTOMRIGHT", 4,0)
 	WatchFrame.SetPoint = T.dummy
 
 	WatchFrameTitle:SetParent(TukuiWatchFrame)
 	WatchFrameCollapseExpandButton:SetParent(TukuiWatchFrame)
+	WatchFrameCollapseExpandButton:ClearAllPoints()
+	WatchFrameCollapseExpandButton:SetPoint("TOPLEFT",32,-22,WatchFrame)
 	WatchFrameCollapseExpandButton:SetNormalTexture("")
 	WatchFrameCollapseExpandButton:SetPushedTexture("")
 	WatchFrameCollapseExpandButton:SetHighlightTexture("")
