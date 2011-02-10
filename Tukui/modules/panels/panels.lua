@@ -229,3 +229,27 @@ if C["datatext"].battleground == true then
 	bgframe:SetFrameLevel(0)
 	bgframe:EnableMouse(true)
 end
+
+
+-- CHAT BG LEFT
+local chatleftbg = CreateFrame("Frame", "TukuiChatBackgroundLeft", TukuiInfoLeft)
+chatleftbg:SetTemplate("Transparent")
+chatleftbg:SetFrameLevel(1)
+chatleftbg:SetFrameStrata("BACKGROUND")
+-- chatleftbg:SetAlpha(0.7)
+chatleftbg:ClearAllPoints()
+chatleftbg:Point("BOTTOMRIGHT",TukuiInfoLeft,"RIGHT")
+chatleftbg:Point("TOPLEFT",TukuiCubeLeft,"CENTER")
+TukuiCubeLeft:SetFrameLevel(2)
+
+-- CHAT BG RIGHT
+local chatrightbg = CreateFrame("Frame", "TukuiChatBackgroundRight", TukuiInfoRight)
+chatrightbg:SetTemplate("Transparent")
+chatrightbg:SetFrameLevel(1)
+chatrightbg:SetFrameStrata("BACKGROUND")
+-- chatrightbg:SetAlpha(0.7)
+chatrightbg:ClearAllPoints()
+chatrightbg:Point("BOTTOMLEFT",TukuiInfoRight,"LEFT")
+chatrightbg:Point("TOPRIGHT",TukuiCubeRight,"CENTER")
+TukuiCubeRight:SetFrameLevel(2)
+

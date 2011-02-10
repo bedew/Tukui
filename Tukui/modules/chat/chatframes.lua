@@ -61,11 +61,11 @@ local function SetChatStyle(frame)
 	
 	if not C.chat.background then
 		-- hide text when setting chat
-		_G[chat.."TabText"]:Hide()
+		_G[chat.."TabText"]:Show()
 		
 		-- now show text if mouse is found over tab.
-		tab:HookScript("OnEnter", function() _G[chat.."TabText"]:Show() end)
-		tab:HookScript("OnLeave", function() _G[chat.."TabText"]:Hide() end)
+		-- tab:HookScript("OnEnter", function() _G[chat.."TabText"]:Show() end)
+		-- tab:HookScript("OnLeave", function() _G[chat.."TabText"]:Hide() end)
 	end
 	
 	-- yeah baby
