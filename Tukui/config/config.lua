@@ -96,10 +96,10 @@ C["datatext"] = {
 	["system"] = 2,                                     -- show total memory and others systems infos on panels
 	["bags"] = 5,                                       -- show space used in bags on panels
 	["gold"] = 6,                                       -- show your current gold on panels
-	["wowtime"] = 8,                                    -- show time on panels
+	["wowtime"] = 7,                                    -- show time on panels
 	["guild"] = 0,                                      -- show number on guildmate connected on panels
 	["dur"] = 4,                                        -- show your equipment durability on panels.
-	["friends"] = 7,                                    -- show number of friends connected.
+	["friends"] = 8,                                    -- show number of friends connected.
 	["dps_text"] = 0,                                   -- show a dps meter on panels
 	["hps_text"] = 0,                                   -- show a heal meter on panels
 	["power"] = 1,                                      -- show your attackpower/spellpower/healpower/rangedattackpower whatever stat is higher gets displayed
@@ -167,5 +167,7 @@ C["buffreminder"] = {
 
 C["widgets"]= {
 	["enable"] = true,                                  -- shows widget on right top corner, change datatextfield 7 and 8 as well.
+	["widgetspace"] = 4,								-- space between widgets
+	["automodus"] = true,								-- enable automodus on default?
 }
 

@@ -140,6 +140,8 @@ end
 
 local function CreateAuraHeader(filter, ...)
 	local name	
+	local template
+	local anorchPoint
 	if filter == "HELPFUL" then name = "TukuiPlayerBuffs" else name = "TukuiPlayerDebuffs" end
 
 	local header = CreateFrame("Frame", name, UIParent, "SecureAuraHeaderTemplate")
@@ -147,24 +149,34 @@ local function CreateAuraHeader(filter, ...)
 	header:SetClampedToScreen(true)
 	header:SetMovable(true)
 	header:HookScript("OnEvent", ScanAuras)
-	
+
 	header:SetAttribute("unit", "player")
 	header:SetAttribute("sortMethod", "TIME")
-	header:SetAttribute("template", "TukuiAuraTemplate")
 	header:SetAttribute("filter", filter)
-	header:SetAttribute("point", "TOPRIGHT")
-	header:SetAttribute("minWidth", 300)
-	header:SetAttribute("minHeight", 94)
-	header:SetAttribute("xOffset", -36)
-	header:SetAttribute("wrapYOffset", -68)
-	header:SetAttribute("wrapAfter", 16)
-	header:SetAttribute("maxWraps", 2)
-	
-	-- look for weapons buffs
+
 	if filter == "HELPFUL" then
+		header:SetAttribute("template", "TukuiAuraTemplateHelp")
+		header:SetAttribute("point", "TOPRIGHT")
+		header:SetAttribute("minWidth", 300)
+		header:SetAttribute("minHeight", 94)
+		header:SetAttribute("xOffset", -36)
+		header:SetAttribute("wrapYOffset", -68)
+		header:SetAttribute("wrapAfter", 16)
+		header:SetAttribute("maxWraps", 2)
+		-- look for weapons buffs
 		header:SetAttribute("includeWeapons", 1)
 		header:SetAttribute("weaponTemplate", "TukuiAuraTemplate")
 		header:HookScript("OnUpdate", CheckWeapons)
+	else
+		header:SetAttribute("template", "TukuiAuraTemplateHarm")
+		header:SetAttribute("point", "TOPRIGHT")
+		header:SetAttribute("minWidth", 60)
+		header:SetAttribute("minHeight", 60)
+		header:SetAttribute("xOffset", -60)
+		header:SetAttribute("wrapYOffset", -70)
+		header:SetAttribute("wrapXOffset", 0);
+		header:SetAttribute("wrapAfter", 5)
+		header:SetAttribute("maxWraps", 2)
 	end
 	
 	header:SetTemplate("Default")
@@ -184,8 +196,8 @@ local function CreateAuraHeader(filter, ...)
 	return header
 end
 
-ScanAuras(CreateAuraHeader("HELPFUL", "TOPRIGHT", -184, -24))
-ScanAuras(CreateAuraHeader("HARMFUL", "TOPRIGHT", -184, -160))
+ScanAuras(CreateAuraHeader("HELPFUL", "TOPRIGHT", -240, T.Scale(-12)))
+ScanAuras(CreateAuraHeader("HARMFUL", "TOP", -30, T.Scale(-12)))
 
 -- create our aura
 local start = CreateFrame("Frame")

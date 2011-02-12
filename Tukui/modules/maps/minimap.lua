@@ -6,8 +6,8 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 local TukuiMinimap = CreateFrame("Frame", "TukuiMinimap", UIParent)
 TukuiMinimap:CreatePanel("Default", 1, 1, "CENTER", UIParent, "CENTER", 0, 0)
 TukuiMinimap:RegisterEvent("ADDON_LOADED")
-TukuiMinimap:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", T.Scale(-24), T.Scale(-22))
-TukuiMinimap:SetSize(T.Scale(144), T.Scale(144))
+TukuiMinimap:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", T.Scale(-12), T.Scale(-44))
+TukuiMinimap:SetSize(T.Scale(210), T.Scale(210))
 TukuiMinimap:SetClampedToScreen(true)
 TukuiMinimap:SetMovable(true)
 TukuiMinimap.text = T.SetFontString(TukuiMinimap, C.media.uffont, 12)
@@ -17,11 +17,12 @@ TukuiMinimap.text:SetText(L.move_minimap)
 -- kill the minimap cluster
 MinimapCluster:Kill()
 
--- Parent Minimap into our Map frame.
+-- Parent Minimap into our Map frame. Mody by bedew because sometimes blizz map is smaller as tukuimap
 Minimap:SetParent(TukuiMinimap)
 Minimap:ClearAllPoints()
-Minimap:Point("TOPLEFT", 2, -2)
-Minimap:Point("BOTTOMRIGHT", -2, 2)
+Minimap:SetSize(TukuiMinimap:GetWidth() -4, TukuiMinimap:GetHeight() -4)
+Minimap:SetPoint("TOPLEFT", 2, -2)
+
 
 -- Hide Border
 MinimapBorder:Hide()

@@ -248,8 +248,16 @@ end
 
 if C["widgets"].enable == true then
 	local widgethead = CreateFrame("Frame", "TukuiWidgetHead", UIParent)
-	widgethead:CreatePanel("Default", (TukuiMinimap:GetWidth()) , 20, "TOPRIGHT", UIParent, "TOPRIGHT", -12, -12)
+	widgethead:CreatePanel("Default", (TukuiMinimap:GetWidth()) , 28, "TOPRIGHT", UIParent, "TOPRIGHT", T.Scale(-12), T.Scale(-11))
 	
+	local widgetbutton = CreateFrame("Button", "TukuiWidgetButton", widgethead)
+	widgetbutton:SetSize(18,18)
+	widgetbutton:SetTemplate("Default")
+	widgetbutton:SetPoint("RIGHT", widgethead, "RIGHT", -6,0)
+	widgetbutton:FontString("text", C.media.font, 12)
+	widgetbutton.text:Point("CENTER", 1, -1)
+	widgetbutton.text:SetParent(widgetbutton)
+	widgetbutton:StyleButton()
 	if TukuiMinimap then
 		TukuiMinimapStatsLeft:Hide()
 		TukuiMinimapStatsRight:Hide()

@@ -11,10 +11,17 @@ local aggroColors = {
 }
 
 -- create the bar
-local TukuiThreatBar = CreateFrame("StatusBar", "TukuiThreatBar", TukuiInfoRight)
+local TukuiThreatBar = CreateFrame("StatusBar", "TukuiThreatBar", TukuiWidgetHead)
+if C["widgets"].enable == true then 
+	TukuiThreatBar:SetParent(TukuiWidgetHead)
+else
+	TukuiThreatBar:SetParent(TukuiInfoRight)
+end
+TukuiThreatBar:SetFrameStrata("HIGH")
+TukuiThreatBar:SetFrameLevel(5)
+
 TukuiThreatBar:Point("TOPLEFT", 2, -2)
 TukuiThreatBar:Point("BOTTOMRIGHT", -2, 2)
-
 TukuiThreatBar:SetStatusBarTexture(C.media.normTex)
 TukuiThreatBar:GetStatusBarTexture():SetHorizTile(false)
 TukuiThreatBar:SetBackdrop({bgFile = C.media.blank})
@@ -46,18 +53,7 @@ local function OnEvent(self, event, ...)
 	elseif event == "PLAYER_REGEN_DISABLED" then
 		-- look if we have a pet, party or raid active
 		-- having threat bar solo is totally useless
-		if party > 0 or raid > 0 or pet == 1 then
-			self:Show()
-		else
-			self:Hide()
-		end
-	else
-		-- update when pet, party or raid change.
-		if (InCombatLockdown()) and (party > 0 or raid > 0 or pet == 1) then
-			self:Show()
-		else
-			self:Hide()
-		end
+		self:Show()
 	end
 end
 

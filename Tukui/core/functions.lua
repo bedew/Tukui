@@ -57,13 +57,13 @@ T.PP = function(p, obj)
 	if C["widgets"].enable and p == 7 then
 		obj:SetParent(topright)
 		obj:SetHeight(topright:GetHeight())
-		obj:SetPoint("LEFT", topright, 0, 0)
+		obj:SetPoint("LEFT", topright, 12, 0)
 		obj:SetPoint('TOP', topright)
 		obj:SetPoint('BOTTOM', topright)
 	elseif C["widgets"].enable and p == 8 then
 		obj:SetParent(topright)
 		obj:SetHeight(topright:GetHeight())
-		obj:SetPoint("LEFT", topright, (topright:GetWidth() / 2) - 4, 0)
+		obj:SetPoint("LEFT", topright, (topright:GetWidth() / 2) - 12, 0)
 		obj:SetPoint('TOP', topright)
 		obj:SetPoint('BOTTOM', topright)
 	elseif p == 7 and TukuiMinimap then

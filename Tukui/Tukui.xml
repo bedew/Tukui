@@ -53,7 +53,8 @@
 	<Script file="modules\blizzard\kill.lua"/>
 	<Script file="modules\chat\spam.lua"/>	
 	<Script file="modules\blizzard\font.lua"/>
-	<Include file="modules\buffs\template.xml"/>
+	<Include file="modules\buffs\template_help.xml"/>
+	<Include file="modules\buffs\template_harm.xml"/>
 	<Script file="modules\buffs\buffs.lua"/>
 	<Script file="modules\maps\minimap.lua"/>
 	<Script file="modules\panels\panels.lua"/>
@@ -117,6 +118,9 @@
 	<Script file="modules\misc\altpowerbar.lua"/>
 	<Script file="modules\misc\threatbar.lua"/>
 	<Script file="modules\blizzard\achievements.lua"/>
+	<Script file="modules\widget\widget_core.lua"/>
+	<Script file="modules\widget\widgets.lua"/>
+	<Script file="modules\widget\automodus.lua"/>
 	<Script file="core\movers.lua"/>
 	<Script file="developer\test.lua"/>
 </Ui>
