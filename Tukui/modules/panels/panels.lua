@@ -246,6 +246,15 @@ if C["datatext"].battleground == true then
 	bgframe:EnableMouse(true)
 end
 
+if C["widgets"].enable == true then
+	local widgethead = CreateFrame("Frame", "TukuiWidgetHead", UIParent)
+	widgethead:CreatePanel("Default", (TukuiMinimap:GetWidth()) , 20, "TOPRIGHT", UIParent, "TOPRIGHT", -12, -12)
+	
+	if TukuiMinimap then
+		TukuiMinimapStatsLeft:Hide()
+		TukuiMinimapStatsRight:Hide()
+	end
+end
 
 -- CHAT BG LEFT
 local chatleftbg = CreateFrame("Frame", "TukuiChatBackgroundLeft", TukuiInfoLeft)

@@ -16,6 +16,7 @@ T.PP = function(p, obj)
 	local right = TukuiInfoRight
 	local mapleft = TukuiMinimapStatsLeft
 	local mapright = TukuiMinimapStatsRight
+	local topright = TukuiWidgetHead
 	
 	if p == 1 then
 		obj:SetParent(left)
@@ -53,19 +54,30 @@ T.PP = function(p, obj)
 		obj:SetPoint('BOTTOM', right)
 	end
 	
-	if TukuiMinimap then
-		if p == 7 then
-			obj:SetParent(mapleft)
-			obj:SetHeight(mapleft:GetHeight())
-			obj:SetPoint('TOP', mapleft)
-			obj:SetPoint('BOTTOM', mapleft)
-		elseif p == 8 then
-			obj:SetParent(mapright)
-			obj:SetHeight(mapright:GetHeight())
-			obj:SetPoint('TOP', mapright)
-			obj:SetPoint('BOTTOM', mapright)
-		end
+	if C["widgets"].enable and p == 7 then
+		obj:SetParent(topright)
+		obj:SetHeight(topright:GetHeight())
+		obj:SetPoint("LEFT", topright, 0, 0)
+		obj:SetPoint('TOP', topright)
+		obj:SetPoint('BOTTOM', topright)
+	elseif C["widgets"].enable and p == 8 then
+		obj:SetParent(topright)
+		obj:SetHeight(topright:GetHeight())
+		obj:SetPoint("LEFT", topright, (topright:GetWidth() / 2) - 4, 0)
+		obj:SetPoint('TOP', topright)
+		obj:SetPoint('BOTTOM', topright)
+	elseif p == 7 and TukuiMinimap then
+		obj:SetParent(mapleft)
+		obj:SetHeight(mapleft:GetHeight())
+		obj:SetPoint('TOP', mapleft)
+		obj:SetPoint('BOTTOM', mapleft)
+	elseif p == 8 and TukuiMinimap then
+		obj:SetParent(mapright)
+		obj:SetHeight(mapright:GetHeight())
+		obj:SetPoint('TOP', mapright)
+		obj:SetPoint('BOTTOM', mapright)
 	end
+
 end
 
 T.DataTextTooltipAnchor = function(self)

@@ -164,3 +164,8 @@ C["buffreminder"] = {
 	["enable"] = true,                                  -- this is now the new innerfire warning script for all armor/aspect class.
 	["sound"] = true,                                   -- enable warning sound notification for reminder.
 }
+
+C["widgets"]= {
+	["enable"] = true,                                  -- shows widget on right top corner, change datatextfield 7 and 8 as well.
+}
+
