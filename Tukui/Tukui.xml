@@ -111,6 +111,8 @@
 	<Script file="modules\notifications\selfbuffs.lua"/>
 	<Script file="modules\skins\blizzardframes.lua"/>
 	<Script file="modules\skins\bubbles.lua"/>	
+	<Script file="modules\skins\recount.lua"/>	
+	<Script file="modules\skins\omen.lua"/>	
 	<Include file="modules\unitframes\templates\tankassist.xml"/>
 	<Script file="modules\unitframes\tags\tags.lua"/>
 	<Script file="modules\unitframes\layouts\tukui.lua"/>
