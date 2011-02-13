@@ -3,18 +3,23 @@ if C["breakdown"].enable == false then return end
 
 breakdown.update = function() 
 	inInstance, instanceType = IsInInstance()
+	isPveInstance = false
+	isInCombat = UnitAffectingCombat("player")
+	isMounted = IsMounted()
+	if inInstance and (instanceType == "party" or instanceType == "raid") then isPveInstance = true end
 	
-	if (inInstance and (instanceType == "party" or instanceType == "raid")) or UnitAffectingCombat("player") then
+	
+	if isPveInstance and isInCombat then
 		AutoSetWidget("Map", false)
-	else
-		AutoResetWidget("Map")
-	end
-
-	if UnitAffectingCombat("player") then
-		AutoSetWidget("Recount", false)	
 		AutoSetWidget("Omen", true)
 	else
+		AutoResetWidget("Map")
 		AutoResetWidget("Omen")
+	end
+
+	if isInCombat then
+		AutoSetWidget("Recount", false)	
+	else
 		AutoResetWidget("Recount")
 	end
 
