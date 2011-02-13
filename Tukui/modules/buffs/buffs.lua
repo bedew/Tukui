@@ -197,7 +197,7 @@ local function CreateAuraHeader(filter, ...)
 end
 
 ScanAuras(CreateAuraHeader("HELPFUL", "TOPRIGHT", -240, T.Scale(-12)))
-ScanAuras(CreateAuraHeader("HARMFUL", "TOP", -30, T.Scale(-12)))
+ScanAuras(CreateAuraHeader("HARMFUL", "CENTER", 0, T.Scale(-180)))
 
 -- create our aura
 local start = CreateFrame("Frame")
