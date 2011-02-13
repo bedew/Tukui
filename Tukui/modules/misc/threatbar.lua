@@ -12,7 +12,7 @@ local aggroColors = {
 
 -- create the bar
 local TukuiThreatBar = CreateFrame("StatusBar", "TukuiThreatBar", TukuiWidgetHead)
-if C["widgets"].enable == true then 
+if C["breakdown"].enable == true then 
 	TukuiThreatBar:SetParent(TukuiWidgetHead)
 else
 	TukuiThreatBar:SetParent(TukuiInfoRight)

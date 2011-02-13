@@ -165,7 +165,7 @@ C["buffreminder"] = {
 	["sound"] = true,                                   -- enable warning sound notification for reminder.
 }
 
-C["widgets"]= {
+C["breakdown"]= {
 	["enable"] = true,                                  -- shows widget on right top corner, change datatextfield 7 and 8 as well.
 	["widgetspace"] = 4,								-- space between widgets
 	["automodus"] = true,								-- enable automodus on default?

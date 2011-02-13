@@ -118,9 +118,11 @@
 	<Script file="modules\misc\altpowerbar.lua"/>
 	<Script file="modules\misc\threatbar.lua"/>
 	<Script file="modules\blizzard\achievements.lua"/>
-	<Script file="modules\widget\widget_core.lua"/>
-	<Script file="modules\widget\widgets.lua"/>
-	<Script file="modules\widget\automodus.lua"/>
+	<Script file="modules\breakdown\core.lua"/>
+	<Script file="modules\breakdown\api.lua"/>
+	<Script file="modules\breakdown\widgets.lua"/>
+	<Script file="modules\breakdown\loadwidget.lua"/>
+	<Script file="modules\breakdown\automodus.lua"/>
 	<Script file="core\movers.lua"/>
 	<Script file="developer\test.lua"/>
 </Ui>

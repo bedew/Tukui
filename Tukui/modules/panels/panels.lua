@@ -246,7 +246,7 @@ if C["datatext"].battleground == true then
 	bgframe:EnableMouse(true)
 end
 
-if C["widgets"].enable == true then
+if C["breakdown"].enable == true then
 	local widgethead = CreateFrame("Frame", "TukuiWidgetHead", UIParent)
 	widgethead:CreatePanel("Default", (TukuiMinimap:GetWidth()) , 28, "TOPRIGHT", UIParent, "TOPRIGHT", T.Scale(-12), T.Scale(-11))
 	
