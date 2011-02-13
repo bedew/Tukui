@@ -1,7 +1,8 @@
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
 if C["breakdown"].enable == false then return end
 
-
+local breakdownHead = TukuiWidgetHead
+local breakdownButton = TukuiWidgetButton
 -- Init
 --------------------------------------------------
 
@@ -10,18 +11,23 @@ local function InitWidget(title)
 	widgetItem = breakdown:get(title)
 	
 	
-	widgetItem.hideframe:ClearAllPoints()
-	widgetItem.hideframe:SetWidth(widgetHead:GetWidth())
+	
+	widgetItem.hideframe:SetWidth(breakdownHead:GetWidth())
 	widgetItem.hideframe:SetHeight(widgetItem.frame:GetHeight())
+	widgetItem.hideframe:ClearAllPoints()
 	if not lastitem then
-		widgetItem.hideframe:SetPoint("TOPLEFT", wC.headframe, "BOTTOMLEFT", 0 , - wC.widgetspace)
-		widgetItem.hideframe:SetParent(wC.headframe)
+		widgetItem.hideframe:SetPoint("TOPLEFT", breakdownHead, "BOTTOMLEFT", 0 , - C["breakdown"].widgetspace)
+		widgetItem.hideframe:SetParent(breakdownHead)
 	else
-		widgetItem.hideframe:SetPoint("TOPLEFT", lastitem.hideframe, "BOTTOMLEFT", 0 , - wC.widgetspace)
+		widgetItem.hideframe:SetPoint("TOPLEFT", lastitem.hideframe, "BOTTOMLEFT", 0 , - C["breakdown"].widgetspace)
 		widgetItem.hideframe:SetParent(lastitem.hideframe)
 	end
 	
-	widgetItem.expand = widgetItem.frame:IsVisible()
+	if widgetItem.expand then
+		breakdown:expand(title)
+	else
+		breakdown:collapse(title)
+	end
 	lastitem = widgetItem
 end
 
@@ -33,17 +39,17 @@ local function InitWidgets()
 			InitWidget(title)
 			count = count +1
 		end
-		print("Breakdown init. Found " .. count .. " widget(s)")
+		-- print("Breakdown init. Found " .. count .. " widget(s)")
 	end
 	
 	isInit = true
 end
 
-local TmpFrame = CreateFrame("Frame")
-TmpFrame:RegisterEvent("PLAYER_ALIVE")
+local TmpFrame = CreateFrame("Frame", nil, parent)
+TmpFrame:RegisterEvent("PLAYER_LOGIN")
 TmpFrame:SetScript("OnEvent", function(self, event, ...)
-	if event == "PLAYER_ALIVE" then
-		self:UnregisterEvent("PLAYER_ALIVE")
+	if event == "PLAYER_LOGIN" then
+		self:UnregisterEvent("PLAYER_LOGIN")
 		InitWidgets()
 	end
 end)

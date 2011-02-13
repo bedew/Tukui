@@ -24,6 +24,7 @@ breakdown.update = function() end
 
 breakdown.add = function(self, widgetItem)
 	widgetItem.hideframe = CreateFrame("Frame", widgetItem.title .. "Hideframe", widgetItem.frame)
+	-- widgetItem.hideframe:SetTemplate("Default")
 	self.items[widgetItem.title] = widgetItem
 end
 
@@ -36,7 +37,7 @@ breakdown.get = function(self, title)
 end
 
 breakdown.collapse = function(self, title)
-	print("Collapse " .. title)
+	-- print("Collapse " .. title)
 	local widgetItem = breakdown:get(title)
 	widgetItem.hideframe:SetHeight(1)
 	widgetItem.frame:Hide()
@@ -44,7 +45,7 @@ breakdown.collapse = function(self, title)
 end
 
 breakdown.expand = function(self, title)
-	print("Expand " .. title)
+	-- print("Expand " .. title)
 	local widgetItem = breakdown:get(title)
 	widgetItem.hideframe:Show()
 	widgetItem.hideframe:SetHeight(widgetItem.frame:GetHeight())

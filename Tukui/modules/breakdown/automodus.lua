@@ -11,18 +11,18 @@ breakdown.update = function()
 	end
 
 	if UnitAffectingCombat("player") then
-		-- AutoSetWidget("Recount", false)	
-		-- AutoSetWidget("Omen", true)
+		AutoSetWidget("Recount", false)	
+		AutoSetWidget("Omen", true)
 	else
-		-- AutoResetWidget("Omen")
-		-- AutoResetWidget("Recount")
+		AutoResetWidget("Omen")
+		AutoResetWidget("Recount")
 	end
 
 
 end
 
 
-local TmpFrame = CreateFrame("Frame")
+local TmpFrame = CreateFrame("Frame", nil, parent)
 TmpFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 TmpFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 TmpFrame:RegisterEvent("PLAYER_REGEN_DISABLED")

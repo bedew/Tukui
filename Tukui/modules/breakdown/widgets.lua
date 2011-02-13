@@ -9,7 +9,7 @@ end
 
 --Recount
 if IsAddOnLoaded("Recount") then
-	AddBreakdownWidget({title = "Recount", frame = Recount.MainWindow, resize = function() Recount:ResizeMainWindow() end})
+	AddBreakdownWidget({title = "Recount", frame = Recount.MainWindow, resize = function() Recount:ResizeMainWindow() end, expand = true})
 end
 
 --Omen

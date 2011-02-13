@@ -121,7 +121,7 @@
 	<Script file="modules\breakdown\core.lua"/>
 	<Script file="modules\breakdown\api.lua"/>
 	<Script file="modules\breakdown\widgets.lua"/>
-	<Script file="modules\breakdown\loadwidget.lua"/>
+	<Script file="modules\breakdown\loadwidgets.lua"/>
 	<Script file="modules\breakdown\automodus.lua"/>
 	<Script file="core\movers.lua"/>
 	<Script file="developer\test.lua"/>
