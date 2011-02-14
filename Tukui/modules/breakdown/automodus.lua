@@ -10,17 +10,17 @@ breakdown.update = function()
 	
 	
 	if isPveInstance and isInCombat then
-		AutoSetWidget("Map", false)
-		AutoSetWidget("Omen", true)
+		if TukuiMinimap then AutoSetWidget("Map", false) end
+		if IsAddOnLoaded("Omen") then AutoSetWidget("Omen", true) end
 	else
-		AutoResetWidget("Map")
-		AutoResetWidget("Omen")
+		if TukuiMinimap then AutoResetWidget("Map") end
+		if IsAddOnLoaded("Omen") then AutoResetWidget("Omen") end
 	end
 
 	if isInCombat then
-		AutoSetWidget("Recount", false)	
+		if IsAddOnLoaded("Recount") then AutoSetWidget("Recount", false) end
 	else
-		AutoResetWidget("Recount")
+		if IsAddOnLoaded("Recount") then AutoResetWidget("Recount") end
 	end
 
 
