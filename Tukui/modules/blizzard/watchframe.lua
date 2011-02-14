@@ -89,6 +89,18 @@ local function setup()
 		end 
 	end)
 	WatchFrameTitle:Kill()
+	
+	--Autohide Watchframelog on entering Instance 
+	local TmpFrame = CreateFrame("Frame", nil, parent)
+	TmpFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	TmpFrame:SetScript("OnEvent", function(self, event, ...)
+		if  event == "ZONE_CHANGED_NEW_AREA" then
+			if IsInInstance() then 
+				WatchFrame.userCollapsed = true
+				WatchFrame_Collapse(WatchFrame)
+			end
+		end
+	end)
 end
 
 ------------------------------------------------------------------------
