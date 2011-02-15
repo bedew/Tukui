@@ -199,7 +199,7 @@ local function CreateAuraHeader(filter, ...)
 end
 
 ScanAuras(CreateAuraHeader("HELPFUL", "TOPLEFT", 24, -12))
-ScanAuras(CreateAuraHeader("HARMFUL", "CENTER", 0, -160))
+ScanAuras(CreateAuraHeader("HARMFUL", "CENTER", 0, -150))
 
 -- create our aura
 --[[
