@@ -16,12 +16,16 @@ local function InitWidget(widgetItem, anchorPoint, anchorFrame, anchorFramePoint
 	if lastitem then
 		if widgetItem.breakdown.widgetDirection == "TOP" then
 			widgetItem.hideframe:SetPoint("BOTTOM", lastitem.hideframe, widgetItem.breakdown.widgetDirection, 0, widgetItem.breakdown.widgetSpace)
+			widgetItem.frame:SetWidth(widgetItem.breakdown.widgetSize)
 		elseif widgetItem.breakdown.widgetDirection == "BOTTOM" then
 			widgetItem.hideframe:SetPoint("TOP", lastitem.hideframe, widgetItem.breakdown.widgetDirection, 0, -widgetItem.breakdown.widgetSpace)
+			widgetItem.frame:SetWidth(widgetItem.breakdown.widgetSize)
 		elseif widgetItem.breakdown.widgetDirection == "RIGHT" then
 			widgetItem.hideframe:SetPoint("LEFT", lastitem.hideframe, widgetItem.breakdown.widgetDirection, widgetItem.breakdown.widgetSpace, 0)
+			widgetItem.frame:SetHeight(widgetItem.breakdown.widgetSize)
 		elseif widgetItem.breakdown.widgetDirection == "LEFT" then
 			widgetItem.hideframe:SetPoint("RIGHT", lastitem.hideframe, widgetItem.breakdown.widgetDirection, -widgetItem.breakdown.widgetSpace, 0)
+			widgetItem.frame:SetHeight(widgetItem.breakdown.widgetSize)
 		else
 			print("Direction for breakdown " .. widgetItem.breakdown.title .. " not know")
 		end
@@ -31,6 +35,7 @@ local function InitWidget(widgetItem, anchorPoint, anchorFrame, anchorFramePoint
 		widgetItem.hideframe:SetPoint(anchorPoint, anchorFrame, anchorFramePoint, offsetX, offsetY)
 		widgetItem.hideframe:SetParent(anchorFrame)
 	end
+	
 	
 	
 		
@@ -83,7 +88,7 @@ function breakdown:initButton(buttonFrame, formatButton)
 	self.buttonFrame = buttonFrame
 	buttonFrame:EnableMouse(true)
 	buttonFrame:SetScript("OnMouseUp", function(selfButtonFrame, btn)
-		if btn == "LeftButton" then
+		if btn == "RightButton" then
 			local menuList = {}
 			for title, widgetItem in pairs(self.widgets) do
 				table.insert(menuList, {text = title, func = function(selfButton) self:toggle(selfButton:GetText()) end, checked = function(selfButton) return self:isexpand(selfButton:GetText()) end})
@@ -122,11 +127,6 @@ function breakdown:initAutofunction(autoUpdateFunction, events)
 end
 
 function breakdown:autoUpdate()
-	print("Autoupdate")
-	if not self.autoUpdateFunction == nil then
-		print("Autoupdate function")
-		self:autoUpdateFunction(self)
-	end
 	self:autoUpdateFunction(self)
 	self:UpdateButtonText()	
 end
@@ -148,7 +148,7 @@ function breakdown:get(title)
 end
 
 function breakdown:collapse(title)
-	print("Collapse " .. title)
+	-- print("Collapse " .. title)
 	local widgetItem = self:get(title)
 	widgetItem.hideframe:SetHeight(1)
 	widgetItem.frame:Hide()
@@ -156,7 +156,7 @@ function breakdown:collapse(title)
 end
 
 function breakdown:expand(title)
-	print("Expand " .. title)
+	-- print("Expand " .. title)
 	local widgetItem = self:get(title)
 	widgetItem.hideframe:Show()
 	widgetItem.hideframe:SetHeight(widgetItem.frame:GetHeight())

@@ -16,7 +16,7 @@ T.PP = function(p, obj)
 	local right = TukuiInfoRight
 	local mapleft = TukuiMinimapStatsLeft
 	local mapright = TukuiMinimapStatsRight
-	local topright = TukuiWidgetHead
+	local topright = TukuiMinimapStatsCenter
 	
 	if p == 1 then
 		obj:SetParent(left)
@@ -54,16 +54,10 @@ T.PP = function(p, obj)
 		obj:SetPoint('BOTTOM', right)
 	end
 	
-	if C["breakdown"].enable and p == 7 then
+	if p == 9 then
 		obj:SetParent(topright)
 		obj:SetHeight(topright:GetHeight())
-		obj:SetPoint("LEFT", topright, 12, 0)
-		obj:SetPoint('TOP', topright)
-		obj:SetPoint('BOTTOM', topright)
-	elseif C["breakdown"].enable and p == 8 then
-		obj:SetParent(topright)
-		obj:SetHeight(topright:GetHeight())
-		obj:SetPoint("LEFT", topright, (topright:GetWidth() / 2) - 12, 0)
+		obj:SetPoint("CENTER", topright, 0, 0)
 		obj:SetPoint('TOP', topright)
 		obj:SetPoint('BOTTOM', topright)
 	elseif p == 7 and TukuiMinimap then
@@ -104,6 +98,9 @@ T.DataTextTooltipAnchor = function(self)
 			anchor = "ANCHOR_BOTTOM"
 			yoff = T.Scale(-6)
 		end
+	elseif panel == TukuiMinimapStatsCenter then
+		anchor = "ANCHOR_BOTTOM"
+	
 	end
 	
 	return anchor, panel, xoff, yoff

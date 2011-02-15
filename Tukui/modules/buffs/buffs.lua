@@ -71,7 +71,7 @@ local function UpdateAuras(header, button, weapon)
 	if(not button.texture) then
 		button.texture = button:CreateTexture(nil, "BORDER")
 		button.texture:SetAllPoints()
-
+		
 		button.count = button:CreateFontString(nil, "ARTWORK")
 		button.count:SetPoint("BOTTOMRIGHT", -1, 1)
 		button.count:SetFont(C.media.font, 12, "OUTLINE")
@@ -83,9 +83,13 @@ local function UpdateAuras(header, button, weapon)
 		button:SetScript("OnUpdate", UpdateTime)
 		
 		button.bg = CreateFrame("Frame", nil, button)
-		button.bg:CreatePanel("Default", 30, 30, "CENTER", button, "CENTER", 0, 0)
+		button.bg:CreatePanel("Default", button:GetWidth() + 2, button:GetHeight() + 2, "CENTER", button, "CENTER", 0, 0)
 		button.bg:SetFrameLevel(button:GetFrameLevel() - 1)
 		button.bg:SetFrameStrata(button:GetFrameStrata())
+	end
+	
+	if header:GetName() == "TukuiPlayerDebuffs" then
+		button:SetAlpha(0.5)	
 	end
 	
 	local name, _, texture, count, dtype, duration, expiration = UnitAura(header:GetAttribute("unit"), button:GetID(), header:GetAttribute("filter"))
@@ -156,12 +160,12 @@ local function CreateAuraHeader(filter, ...)
 
 	if filter == "HELPFUL" then
 		header:SetAttribute("template", "TukuiAuraTemplateHelp")
-		header:SetAttribute("point", "TOPRIGHT")
+		header:SetAttribute("point", "TOPLEFT")
 		header:SetAttribute("minWidth", 300)
 		header:SetAttribute("minHeight", 94)
-		header:SetAttribute("xOffset", -36)
-		header:SetAttribute("wrapYOffset", -68)
-		header:SetAttribute("wrapAfter", 16)
+		header:SetAttribute("xOffset",36)
+		header:SetAttribute("wrapYOffset", -38)
+		header:SetAttribute("wrapAfter", 12)
 		header:SetAttribute("maxWraps", 2)
 		-- look for weapons buffs
 		header:SetAttribute("includeWeapons", 1)
@@ -170,13 +174,11 @@ local function CreateAuraHeader(filter, ...)
 	else
 		header:SetAttribute("template", "TukuiAuraTemplateHarm")
 		header:SetAttribute("point", "TOPRIGHT")
-		header:SetAttribute("minWidth", 60)
-		header:SetAttribute("minHeight", 60)
-		header:SetAttribute("xOffset", -60)
-		header:SetAttribute("wrapYOffset", -70)
-		header:SetAttribute("wrapXOffset", 0);
-		header:SetAttribute("wrapAfter", 5)
-		header:SetAttribute("maxWraps", 2)
+		header:SetAttribute("minWidth", 32)
+		header:SetAttribute("minHeight", 32)
+		header:SetAttribute("xOffset", -36)
+		header:SetAttribute("wrapAfter", 8)
+		header:SetAttribute("maxWraps", 1)
 	end
 	
 	header:SetTemplate("Default")
@@ -196,10 +198,11 @@ local function CreateAuraHeader(filter, ...)
 	return header
 end
 
-ScanAuras(CreateAuraHeader("HELPFUL", "TOPRIGHT", -240, T.Scale(-12)))
-ScanAuras(CreateAuraHeader("HARMFUL", "CENTER", 0, T.Scale(-180)))
+ScanAuras(CreateAuraHeader("HELPFUL", "TOPLEFT", 24, -12))
+ScanAuras(CreateAuraHeader("HARMFUL", "CENTER", 0, -160))
 
 -- create our aura
+--[[
 local start = CreateFrame("Frame")
 start:RegisterEvent("VARIABLES_LOADED")
 start:SetScript("OnEvent", function(self)
@@ -221,3 +224,5 @@ start:SetScript("OnEvent", function(self)
 		end
 	end
 end)
+
+--]]

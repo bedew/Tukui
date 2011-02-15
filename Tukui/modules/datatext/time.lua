@@ -100,6 +100,21 @@ local function formatResetTime(sec,table)
 	return strmatch(string,"^%s*$") and "0"..(table.seconds or L"s") or string
 end
 
+local loginTime = 0
+local function getLoginTimeSpan()
+	if loginTime == 0 then return "-" end
+	local timeSpan = time() - loginTime
+	if timeSpan < 60 then return "-" end
+	
+	loginHour, loginMin, loginSec = CalculateTimeLeft(timeSpan)
+	local rtn = ""
+	if loginHour > 0 then
+		rtn = loginHour.."h "
+	end
+	rtn = rtn .. loginMin.."m"
+	return rtn
+end
+
 local int = 1
 local function Update(self, t)
 	int = int - t
@@ -108,9 +123,9 @@ local function Update(self, t)
 	local Hr, Min, AmPm = CalculateTimeValues()
 	
 	if CalendarGetNumPendingInvites() > 0 then
-		Text:SetTextColor(1, 0, 0)
+		-- Text:SetTextColor(1, 0, 0)
 	else
-		Text:SetTextColor(1, 1, 1)
+		-- Text:SetTextColor(1, 1, 1)
 	end
 	
 	-- no update quick exit
@@ -122,13 +137,17 @@ local function Update(self, t)
 	curHr = Hr
 	curMin = Min
 	curAmPm = AmPm
-		
-	if AmPm == -1 then
-		Text:SetFormattedText(europeDisplayFormat, Hr, Min)
-	else
-		Text:SetFormattedText(ukDisplayFormat, Hr, Min, APM[AmPm])
-	end
+	
 
+	if AmPm == -1 then
+		currentTime = format(europeDisplayFormat, Hr, Min)
+	else
+		currentTime = format(ukDisplayFormat, Hr, Min, APM[AmPm])
+	end
+	
+	currentLogin =  "   |  " .. getLoginTimeSpan()
+
+	Text:SetText(currentTime .. currentLogin)
 	self:SetAllPoints(Text)
 	int = 2
 end
@@ -161,6 +180,7 @@ Stat:SetScript("OnEnter", function(self)
 
 	local timeText
 	local Hr, Min, AmPm = CalculateTimeValues(true)
+	local HrLogin, MinLogin, SecLogin = CalculateTimeLeft(loginTime)
 
 	if C["datatext"].localtime == true then
 		timeText = L.datatext_servertime
@@ -170,9 +190,17 @@ Stat:SetScript("OnEnter", function(self)
 	
 	if AmPm == -1 then
 		GameTooltip:AddDoubleLine(timeText, string.format(europeDisplayFormat, Hr, Min))
+		if loginTime > 0 then
+			GameTooltip:AddDoubleLine("Login:", date("%H:%M", loginTime))
+		end
 	else
 		GameTooltip:AddDoubleLine(timeText, string.format(ukDisplayFormat, Hr, Min, APM[AmPm]))
+		if loginTime > 0 then
+			GameTooltip:AddDoubleLine("Login:", date("%I:%M %p", loginTime))
+		end
 	end
+	
+	
 	
 	local oneraid, lockoutColor
 	for i = 1, GetNumSavedInstances() do
@@ -204,3 +232,10 @@ Stat:SetScript("OnMouseDown", function(self, btn)
 	end
 end)
 Update(Stat, 10)
+
+local TmpFrame = CreateFrame("Frame", nil, parent)
+TmpFrame:RegisterEvent("PLAYER_LOGIN")
+TmpFrame:SetScript("OnEvent", function(self, event, ...)
+		loginTime = time()
+		self:UnregisterEvent("PLAYER_LOGIN")
+end)

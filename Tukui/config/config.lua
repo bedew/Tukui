@@ -3,8 +3,10 @@
 C["general"] = {
 	["autoscale"] = true,                               -- mainly enabled for users that don't want to mess with the config file
 	["uiscale"] = 0.71,                                 -- set your value (between 0.64 and 1) of your uiscale if autoscale is off
-	["overridelowtohigh"] = true,                      -- EXPERIMENTAL ONLY! override lower version to higher version on a lower reso.
+	["overridelowtohigh"] = false,                      -- EXPERIMENTAL ONLY! override lower version to higher version on a lower reso.
 	["multisampleprotect"] = false,                      -- i don't recommend this because of shitty border but, voila!
+	["questwatchheight"] = 240,							-- height for quest-watchframe
+	["widgetwidth"] = 210,								-- width of map, and all widgets on the right side
 }
 
 C["unitframes"] = {
@@ -94,16 +96,16 @@ C["cooldown"] = {
 
 C["datatext"] = {
 	["fps_ms"] = 3,                                     -- show fps and ms on panels
-	["system"] = 2,                                     -- show total memory and others systems infos on panels
+	["system"] = 0,                                     -- show total memory and others systems infos on panels
 	["bags"] = 5,                                       -- show space used in bags on panels
 	["gold"] = 6,                                       -- show your current gold on panels
-	["wowtime"] = 7,                                    -- show time on panels
-	["guild"] = 0,                                      -- show number on guildmate connected on panels
+	["wowtime"] = 9,                                    -- show time on panels
+	["guild"] = 2,                                      -- show number on guildmate connected on panels
 	["dur"] = 4,                                        -- show your equipment durability on panels.
-	["friends"] = 8,                                    -- show number of friends connected.
+	["friends"] = 1,                                    -- show number of friends connected.
 	["dps_text"] = 0,                                   -- show a dps meter on panels
 	["hps_text"] = 0,                                   -- show a heal meter on panels
-	["power"] = 1,                                      -- show your attackpower/spellpower/healpower/rangedattackpower whatever stat is higher gets displayed
+	["power"] = 0,                                      -- show your attackpower/spellpower/healpower/rangedattackpower whatever stat is higher gets displayed
 	["haste"] = 0,                                      -- show your haste rating on panels.
 	["crit"] = 0,                                       -- show your crit rating on panels.
 	["avd"] = 0,                                        -- show your current avoidance against the level of the mob your targeting
@@ -165,10 +167,3 @@ C["buffreminder"] = {
 	["enable"] = true,                                  -- this is now the new innerfire warning script for all armor/aspect class.
 	["sound"] = true,                                   -- enable warning sound notification for reminder.
 }
-
-C["breakdown"]= {
-	["enable"] = true,                                  -- shows widget on right top corner, change datatextfield 7 and 8 as well.
-	["widgetspace"] = 4,								-- space between widgets
-	["automodus"] = true,								-- enable automodus on default?
-}
-

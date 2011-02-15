@@ -246,23 +246,23 @@ if C["datatext"].battleground == true then
 	bgframe:EnableMouse(true)
 end
 
-if C["breakdown"].enable == true then
-	local widgethead = CreateFrame("Frame", "TukuiWidgetHead", UIParent)
-	widgethead:CreatePanel("Default", (TukuiMinimap:GetWidth()) , 28, "TOPRIGHT", UIParent, "TOPRIGHT", T.Scale(-12), T.Scale(-11))
-	
-	local widgetbutton = CreateFrame("Button", "TukuiWidgetButton", widgethead)
-	widgetbutton:SetSize(18,18)
-	widgetbutton:SetTemplate("Default")
-	widgetbutton:SetPoint("RIGHT", widgethead, "RIGHT", -6,0)
-	widgetbutton:FontString("text", C.media.font, 12)
-	widgetbutton.text:Point("CENTER", 1, -1)
-	widgetbutton.text:SetParent(widgetbutton)
-	widgetbutton:StyleButton()
-	if TukuiMinimap then
-		TukuiMinimapStatsLeft:Hide()
-		TukuiMinimapStatsRight:Hide()
-	end
+local minimapstatscenter = CreateFrame("Frame", "TukuiMinimapStatsCenter", UIParent)
+minimapstatscenter:CreatePanel("Default",  C["general"].widgetwidth - 50, 19, "TOPRIGHT", UIParent, "TOPRIGHT", -(25+24), -12)
+
+local widgetbutton = CreateFrame("Button", "TukuiWidgetButton", minimapstatscenter)
+widgetbutton:SetSize(21,19)
+widgetbutton:SetTemplate("Default")
+widgetbutton:SetPoint("TOPLEFT", minimapstatscenter, "TOPRIGHT", 4,0)
+widgetbutton:FontString("text", C.media.font, 12)
+widgetbutton.text:Point("CENTER", 1, -1)
+widgetbutton.text:SetParent(widgetbutton)
+widgetbutton:StyleButton()
+
+if TukuiMinimap then
+	TukuiMinimapStatsLeft:Hide()
+	TukuiMinimapStatsRight:Hide()
 end
+
 
 -- CHAT BG LEFT
 local chatleftbg = CreateFrame("Frame", "TukuiChatBackgroundLeft", TukuiInfoLeft)

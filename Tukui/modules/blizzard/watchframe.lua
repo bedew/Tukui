@@ -3,6 +3,8 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 local TukuiWatchFrame = CreateFrame("Frame", "TukuiWatchFrame", UIParent)
 TukuiWatchFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
+
+
 -- to be compatible with blizzard option
 local wideFrame = GetCVar("watchFrameWidth")
 
@@ -23,7 +25,7 @@ TukuiWatchFrameAnchor.text:SetText(L.move_watchframe)
 TukuiWatchFrameAnchor.text:Hide()
 
 -- set default position according to how many right bars we have
-TukuiWatchFrameAnchor:SetPoint("TOPLEFT", UIParent,  "TOPLEFT", T.Scale(0), -T.Scale(0))
+TukuiWatchFrameAnchor:SetPoint("TOPRIGHT", UIParent,  "TOPRIGHT", -C["general"].widgetwidth,0)
 
 -- width of the watchframe according to our Blizzard cVar.
 if wideFrame == "1" then
@@ -57,6 +59,10 @@ local function init()
 			wideFrame = value
 		end
 	end)
+	if C["general"].questwatchheight > 0 then
+		TukuiWatchFrame:SetHeight(C["general"].questwatchheight)
+	end
+
 end
 
 local function setup()	
@@ -71,9 +77,11 @@ local function setup()
 	WatchFrame.SetPoint = T.dummy
 
 	WatchFrameTitle:SetParent(TukuiWatchFrame)
-	WatchFrameCollapseExpandButton:SetParent(TukuiWatchFrame)
+	WatchFrameCollapseExpandButton:SetParent("UIParent")
+	WatchFrameCollapseExpandButton:SetSize(21,19)
 	WatchFrameCollapseExpandButton:ClearAllPoints()
-	WatchFrameCollapseExpandButton:SetPoint("TOPLEFT",32,-22,WatchFrame)
+	--WatchFrameCollapseExpandButton:SetPoint("TOPLEFT",32,-22,WatchFrame)
+	WatchFrameCollapseExpandButton:SetPoint("TOPRIGHT",-((C["general"].widgetwidth - 25)+4+24),-12)
 	WatchFrameCollapseExpandButton:SetNormalTexture("")
 	WatchFrameCollapseExpandButton:SetPushedTexture("")
 	WatchFrameCollapseExpandButton:SetHighlightTexture("")
@@ -82,8 +90,9 @@ local function setup()
 	WatchFrameCollapseExpandButton.text:SetText("X")
 	WatchFrameCollapseExpandButton.text:Point("CENTER", 1, 0)
 	WatchFrameCollapseExpandButton:HookScript("OnClick", function(self) 
+	-- WatchFrameCollapseExpandButton:StyleButton()
 		if WatchFrame.collapsed then 
-			self.text:SetText("V") 
+			self.text:SetText("-") 
 		else 
 			self.text:SetText("X")
 		end 

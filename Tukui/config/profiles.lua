@@ -4,8 +4,9 @@
 ----------------------------------------------------------------------------
 local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
 
-if T.myclass == "PRIEST" then
+if T.myclass == "PRIEST" or T.myclass == "ROGUE" then
 	-- do some config!
+	C.actionbar.hideshapeshift = true
 end
 
 ----------------------------------------------------------------------------

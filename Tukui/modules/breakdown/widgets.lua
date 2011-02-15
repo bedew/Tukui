@@ -3,15 +3,13 @@
 -- Description: Shows basic use of breakdown class
 ----------------------------------------------------------------------------------------------------
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
-if C["breakdown"].enable == false then return end
-
 
 -- Right Breakdown
 -------------------------------------------------
 
 
 --create(name, widgetDirection, widgetSize, widgetSpace, automodusEnableOnLogin)
-local breakdownright = breakdown.create("breakdownright","BOTTOM", 200, 4, true)
+local breakdownright = breakdown.create("breakdownright","BOTTOM", C["general"].widgetwidth, 4, true)
 
 do
 	--Add Minimap
@@ -30,7 +28,7 @@ do
 	end
 end
 --init(AnchorPoint, AnchorFrame, AnchorFramePoint, offsetX, offsetY)
-breakdownright:init("TOPLEFT", TukuiWidgetHead, "BOTTOMLEFT", 0, -4)
+breakdownright:init("TOPLEFT", TukuiMinimapStatsCenter, "BOTTOMLEFT", -25, -4)
 
 --initButton(buttonFrame, formatButton)
 breakdownright:initButton(TukuiWidgetButton,true)

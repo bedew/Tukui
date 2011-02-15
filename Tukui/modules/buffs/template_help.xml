@@ -1,6 +1,6 @@
 <Ui xmlns='http://www.blizzard.com/wow/ui'>
 	<Button name='TukuiAuraTemplateHelp' inherits='SecureActionButtonTemplate' virtual='true'>
-		<Size x='28' y='28'/>
+		<Size x='30' y='30'/>
 		<Attributes>
 			<Attribute name='type' value='cancelaura'/>
 		</Attributes>
