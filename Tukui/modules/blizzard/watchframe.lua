@@ -24,8 +24,16 @@ TukuiWatchFrameAnchor.text:SetPoint("CENTER")
 TukuiWatchFrameAnchor.text:SetText(L.move_watchframe)
 TukuiWatchFrameAnchor.text:Hide()
 
+local watchframebutton = CreateFrame("Frame","TukuiWatchFrameCollapseExpandButton", UIParent)
+watchframebutton:CreatePanel("Default",21,19,"TOPRIGHT",UIParent, "TOPRIGHT",-((C["general"].widgetwidth - 25)+4+24),-12)
+watchframebutton:SetFrameStrata(WatchFrameHeader:GetFrameStrata())
+watchframebutton:SetFrameLevel(WatchFrameHeader:GetFrameLevel() + 1)
+watchframebutton:FontString("text", C.media.font, 12)
+watchframebutton.text:SetText("X")
+watchframebutton.text:Point("CENTER", 1, 0)
+
 -- set default position according to how many right bars we have
-TukuiWatchFrameAnchor:SetPoint("TOPRIGHT", UIParent,  "TOPRIGHT", -C["general"].widgetwidth,0)
+TukuiWatchFrameAnchor:SetPoint("TOPRIGHT", UIParent,  "TOPRIGHT", -C["general"].widgetwidth - 20,0)
 
 -- width of the watchframe according to our Blizzard cVar.
 if wideFrame == "1" then
@@ -62,8 +70,79 @@ local function init()
 	if C["general"].questwatchheight > 0 then
 		TukuiWatchFrame:SetHeight(C["general"].questwatchheight)
 	end
-
+	
 end
+
+local function ResetWatchFrame()
+	if GetNumQuestWatches() > 0 then
+		RemoveQuestWatch(GetQuestIndexForWatch(1))
+		WatchFrame_Update()
+		QuestLog_Update()
+		ResetWatchFrame()
+	end
+end
+
+local function CleanWatchFrame()
+	local i = 1
+	while GetQuestLogTitle(i) do
+		local questTitle, level, questTag, suggestedGroup, isHeader, isCollapsed, isComplete, isDaily, questID = GetQuestLogTitle(i)
+		if ( not isHeader ) and ( isComplete) then
+			if IsQuestWatched(i) then RemoveQuestWatch(i) end
+	end
+	i = i + 1
+	end
+	WatchFrame_Update()
+	QuestLog_Update()
+end
+
+local function CleanByRegionWatchFrame()
+	local i = 1
+	local lastHeader = ""
+	while GetQuestLogTitle(i) do
+		local questTitle, level, questTag, suggestedGroup, isHeader, isCollapsed, isComplete, isDaily, questID = GetQuestLogTitle(i)
+		if ( isHeader )  then
+			lastHeader = questTitle
+		elseif lastHeader == GetZoneText() then
+			AddQuestWatch(i)
+		else
+			RemoveQuestWatch(i)
+		end
+		i = i + 1
+	end
+	WatchFrame_Update()
+	QuestLog_Update()
+end
+
+
+local function SetExpandCollapseButtonText()
+	if WatchFrame.collapsed then 
+		TukuiWatchFrameCollapseExpandButton.text:SetText("-")
+	else 
+		TukuiWatchFrameCollapseExpandButton.text:SetText("X") 
+	end 
+end
+
+local function CollapseWatchFrame()
+	WatchFrame.userCollapsed = true
+	WatchFrame_Collapse(WatchFrame)
+	SetExpandCollapseButtonText()
+end
+
+local function ExpandWatchFrame()
+	WatchFrame.userCollapsed = true
+	WatchFrame_Expand(WatchFrame)
+	SetExpandCollapseButtonText()
+end
+
+local function ToggleWatchFrame()
+	if WatchFrame.collapsed then 
+		ExpandWatchFrame()
+	else
+		CollapseWatchFrame()
+	end
+end
+
+
 
 local function setup()	
 	WatchFrame:SetParent(TukuiWatchFrame)
@@ -77,29 +156,31 @@ local function setup()
 	WatchFrame.SetPoint = T.dummy
 
 	WatchFrameTitle:SetParent(TukuiWatchFrame)
-	WatchFrameCollapseExpandButton:SetParent("UIParent")
-	WatchFrameCollapseExpandButton:SetSize(21,19)
-	WatchFrameCollapseExpandButton:ClearAllPoints()
-	--WatchFrameCollapseExpandButton:SetPoint("TOPLEFT",32,-22,WatchFrame)
-	WatchFrameCollapseExpandButton:SetPoint("TOPRIGHT",-((C["general"].widgetwidth - 25)+4+24),-12)
-	WatchFrameCollapseExpandButton:SetFrameStrata(WatchFrameHeader:GetFrameStrata())
-	WatchFrameCollapseExpandButton:SetFrameLevel(WatchFrameHeader:GetFrameLevel() + 1)
-	WatchFrameCollapseExpandButton:SetNormalTexture("")
-	WatchFrameCollapseExpandButton:SetPushedTexture("")
-	WatchFrameCollapseExpandButton:SetHighlightTexture("")
-	WatchFrameCollapseExpandButton:SetTemplate("Default")
-	WatchFrameCollapseExpandButton:FontString("text", C.media.font, 12)
-	WatchFrameCollapseExpandButton.text:SetText("X")
-	WatchFrameCollapseExpandButton.text:Point("CENTER", 1, 0)
-	WatchFrameCollapseExpandButton:HookScript("OnClick", function(self) 
+	
+	
+	SetExpandCollapseButtonText()
+	watchframebutton:EnableMouse(true)
+	watchframebutton:SetScript("OnMouseDown", function(self, button) 
 	-- WatchFrameCollapseExpandButton:StyleButton()
-		if WatchFrame.collapsed then 
-			self.text:SetText("-") 
-		else 
-			self.text:SetText("X")
-		end 
+		if button == "RightButton" then
+			local menu = {
+							{text = "Entferne alle Quests", func = function() ResetWatchFrame(); end, notCheckable = true },
+							{text = "Entferne alle Abgeschlossenen Quest", func = function() CleanWatchFrame(); end, notCheckable = true},
+							{text = "Zeige Quests f\195\188r " .. GetZoneText(), func = function() CleanByRegionWatchFrame(); end, notCheckable = true},
+							{text = "Questlog", func = function() if QuestLogFrame:IsVisible() then QuestLogFrame:Hide() else QuestLogFrame:Show() end end, notCheckable = true},
+						 }
+			local menuFrame = CreateFrame("Frame", "DropdownMenuWatchFrameButton", UIParent, "UIDropDownMenuTemplate")
+
+			-- Make the menu appear at the cursor: 
+			EasyMenu(menu, menuFrame, "cursor", 0 , 0, "MENU");
+		else
+			ToggleWatchFrame()
+		end
 	end)
+	
+	
 	WatchFrameTitle:Kill()
+	WatchFrameCollapseExpandButton:Kill()
 	
 	--Autohide Watchframelog on entering Instance 
 	local TmpFrame = CreateFrame("Frame", nil, parent)
@@ -107,8 +188,7 @@ local function setup()
 	TmpFrame:SetScript("OnEvent", function(self, event, ...)
 		if  event == "ZONE_CHANGED_NEW_AREA" then
 			if IsInInstance() then 
-				WatchFrame.userCollapsed = true
-				WatchFrame_Collapse(WatchFrame)
+				CollapseWatchFrame()
 			end
 		end
 	end)
