@@ -169,7 +169,7 @@ local function CreateAuraHeader(filter, ...)
 		header:SetAttribute("maxWraps", 2)
 		-- look for weapons buffs
 		header:SetAttribute("includeWeapons", 1)
-		header:SetAttribute("weaponTemplate", "TukuiAuraTemplate")
+		header:SetAttribute("weaponTemplate", "TukuiAuraTemplateHelp")
 		header:HookScript("OnUpdate", CheckWeapons)
 	else
 		header:SetAttribute("template", "TukuiAuraTemplateHarm")

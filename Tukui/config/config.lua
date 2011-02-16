@@ -50,7 +50,7 @@ C["unitframes"] = {
 	["showboss"] = true,                                -- enable boss unit frames for PVELOL encounters.
 
 	-- priest only plugin
-	["weakenedsoulbar"] = true,                         -- show weakened soul bar
+	["weakenedsoulbar"] = false,                         -- show weakened soul bar
 	
 	-- class bar
 	["classbar"] = true,                                -- enable tukui classbar over player unit
