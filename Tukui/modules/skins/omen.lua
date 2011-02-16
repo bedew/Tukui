@@ -2,7 +2,7 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 if not(IsAddOnLoaded("Omen")) then return end
 
 local Omen = _G.Omen
-local OmenWidth = 200
+local OmenWidth = C["general"].widgetwidth
 local OmenHeight =  80
 
 local function StyleOmen()
@@ -17,7 +17,6 @@ local function StyleOmen()
 	Omen.Anchor:SetWidth(OmenWidth)
 	Omen.Anchor:SetHeight(OmenHeight)	
 	OmenBarList:SetTemplate("Transparent")
-	Omen.Title:Hide()
 end
 
 local TmpFrame = CreateFrame("Frame", nil, parent)

@@ -2,7 +2,7 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 if not(IsAddOnLoaded("Recount")) then return end
 
 local Recount = _G.Recount
-local RecountWidth = 200
+local RecountWidth = C["general"].widgetwidth
 local RecountHeight = 100
 
 local function StyleRecount()

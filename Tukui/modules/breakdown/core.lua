@@ -16,16 +16,16 @@ local function InitWidget(widgetItem, anchorPoint, anchorFrame, anchorFramePoint
 	if lastitem then
 		if widgetItem.breakdown.widgetDirection == "TOP" then
 			widgetItem.hideframe:SetPoint("BOTTOM", lastitem.hideframe, widgetItem.breakdown.widgetDirection, 0, widgetItem.breakdown.widgetSpace)
-			widgetItem.frame:SetWidth(widgetItem.breakdown.widgetSize)
+			--widgetItem.frame:SetWidth(widgetItem.breakdown.widgetSize)
 		elseif widgetItem.breakdown.widgetDirection == "BOTTOM" then
 			widgetItem.hideframe:SetPoint("TOP", lastitem.hideframe, widgetItem.breakdown.widgetDirection, 0, -widgetItem.breakdown.widgetSpace)
-			widgetItem.frame:SetWidth(widgetItem.breakdown.widgetSize)
+			--widgetItem.frame:SetWidth(widgetItem.breakdown.widgetSize)
 		elseif widgetItem.breakdown.widgetDirection == "RIGHT" then
 			widgetItem.hideframe:SetPoint("LEFT", lastitem.hideframe, widgetItem.breakdown.widgetDirection, widgetItem.breakdown.widgetSpace, 0)
-			widgetItem.frame:SetHeight(widgetItem.breakdown.widgetSize)
+			--widgetItem.frame:SetHeight(widgetItem.breakdown.widgetSize)
 		elseif widgetItem.breakdown.widgetDirection == "LEFT" then
 			widgetItem.hideframe:SetPoint("RIGHT", lastitem.hideframe, widgetItem.breakdown.widgetDirection, -widgetItem.breakdown.widgetSpace, 0)
-			widgetItem.frame:SetHeight(widgetItem.breakdown.widgetSize)
+			--widgetItem.frame:SetHeight(widgetItem.breakdown.widgetSize)
 		else
 			print("Direction for breakdown " .. widgetItem.breakdown.title .. " not know")
 		end
