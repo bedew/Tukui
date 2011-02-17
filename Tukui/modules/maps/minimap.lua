@@ -17,7 +17,7 @@ TukuiMinimap.text:SetText(L.move_minimap)
 -- kill the minimap cluster
 MinimapCluster:Kill()
 
--- Parent Minimap into our Map frame. Mody by bedew because sometimes blizz map is smaller as tukuimap
+-- Parent Minimap into our Map frame. Mod by bedew because sometimes blizz map is smaller as tukuimap
 Minimap:SetParent(TukuiMinimap)
 Minimap:ClearAllPoints()
 Minimap:SetSize(TukuiMinimap:GetWidth() -4, TukuiMinimap:GetHeight() -4)
