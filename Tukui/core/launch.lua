@@ -164,6 +164,10 @@ local function install()
 		ChatFrame_AddMessageGroup(ChatFrame4, "COMBAT_FACTION_CHANGE")
 		ChatFrame_AddMessageGroup(ChatFrame4, "LOOT")
 		ChatFrame_AddMessageGroup(ChatFrame4, "MONEY")
+		ChatFrame_AddMessageGroup(ChatFrame4, "TRADESKILLS")
+		ChatFrame_AddMessageGroup(ChatFrame4, "SKILL")
+		ChatFrame_AddMessageGroup(ChatFrame4, "ACHIEVEMENT")
+		ChatFrame_AddMessageGroup(ChatFrame4, "GUILD_ACHIEVEMENT")
 				
 		-- enable classcolor automatically on login and on each character without doing /configure each time.
 		ToggleChatColorNamesByClassGroup(true, "SAY")
