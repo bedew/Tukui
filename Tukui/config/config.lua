@@ -7,6 +7,7 @@ C["general"] = {
 	["multisampleprotect"] = false,                      -- i don't recommend this because of shitty border but, voila!
 	["questwatchheight"] = 240,							-- height for quest-watchframe
 	["widgetwidth"] = 210,								-- width of map, and all widgets on the right side
+	["autohideonfight"] = true,								-- autohideonfight module, see module/panels/autohide.lua
 }
 
 C["unitframes"] = {
