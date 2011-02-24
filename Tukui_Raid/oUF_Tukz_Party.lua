@@ -2,6 +2,8 @@ local ADDON_NAME, ns = ...
 local oUF = oUFTukui or oUF
 assert(oUF, "Tukui was unable to locate oUF install.")
 
+
+
 ns._Objects = {}
 ns._Headers = {}
 
@@ -10,6 +12,8 @@ if not C["unitframes"].enable == true then return end
 
 local font2 = C["media"].uffont
 local font1 = C["media"].font
+
+
 
 local function Shared(self, unit)
 	self.colors = T.oUF_colors
@@ -22,10 +26,12 @@ local function Shared(self, unit)
 	self:SetBackdrop({bgFile = C["media"].blank, insets = {top = -T.mult, left = -T.mult, bottom = -T.mult, right = -T.mult}})
 	self:SetBackdropColor(0.1, 0.1, 0.1)
 	
+	self:SetTemplate("Default")
+	
 	local health = CreateFrame('StatusBar', nil, self)
-	health:Height(12)
-	health:SetPoint("TOPLEFT")
-	health:SetPoint("TOPRIGHT")
+	health:Height(22)
+	health:SetPoint("TOPLEFT",1,-1)
+	health:SetPoint("TOPRIGHT",-1,1)
 	health:SetStatusBarTexture(C["media"].normTex)
 	self.Health = health
 
@@ -50,8 +56,13 @@ local function Shared(self, unit)
 		health.colorReaction = true			
 	end
 	
+	health.value = T.SetFontString(health, font1, 12)
+	health.value:Point("RIGHT", health, "RIGHT", -4, 0)
+	health.PostUpdate = T.PostUpdateHealth
+	
+	
 	local power = CreateFrame("StatusBar", nil, self)
-	power:Height(3)
+	power:Height(7)
 	power:Point("TOPLEFT", health, "BOTTOMLEFT", 0, -1)
 	power:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, -1)
 	power:SetStatusBarTexture(C["media"].normTex)
@@ -76,8 +87,8 @@ local function Shared(self, unit)
 		
 	local name = health:CreateFontString(nil, 'OVERLAY')
 	name:SetFont(font2, 13*T.raidscale, "THINOUTLINE")
-	name:Point("LEFT", self, "RIGHT", 5, 0)
-	self:Tag(name, '[Tukui:namemedium] [Tukui:dead][Tukui:afk]')
+	name:Point("LEFT", self, "TOPLEFT", 5, 0)
+	self:Tag(name, '[Tukui:namemedium] [Tukui:diffcolor][level] [Tukui:dead][Tukui:afk]')
 	self.Name = name
 	
 	if C["unitframes"].showsymbols == true then
@@ -97,24 +108,12 @@ local function Shared(self, unit)
     end
 	
 	local LFDRole = health:CreateTexture(nil, "OVERLAY")
-    LFDRole:Height(6*T.raidscale)
-    LFDRole:Width(6*T.raidscale)
-	LFDRole:Point("TOPLEFT", 2, -2)
-	LFDRole:SetTexture("Interface\\AddOns\\Tukui\\medias\\textures\\lfdicons.blp")
+    LFDRole:Height(14*T.raidscale)
+    LFDRole:Width(14*T.raidscale)
+	LFDRole:Point("CENTER", self, "TOPLEFT", -self:GetHeight(), 0)
+	--LFDRole:SetTexture("Interface\\AddOns\\Tukui\\medias\\textures\\lfdicons.blp")
+	LFDRole:SetTexture("Interface\\LFGFrame\\UI-LFG-ICON-PORTRAITROLES")
 	self.LFDRole = LFDRole
-	
-	local ReadyCheck = health:CreateTexture(nil, "OVERLAY")
-	ReadyCheck:Height(12*T.raidscale)
-	ReadyCheck:Width(12*T.raidscale)
-	ReadyCheck:SetPoint('CENTER')
-	self.ReadyCheck = ReadyCheck
-	
-	--local picon = self.Health:CreateTexture(nil, 'OVERLAY')
-	--picon:SetPoint('CENTER', self.Health)
-	--picon:SetSize(16, 16)
-	--picon:SetTexture[[Interface\AddOns\Tukui\media\textures\picon]]
-	--picon.Override = T.Phasing
-	--self.PhaseIcon = picon
 	
 	self.DebuffHighlightAlpha = 1
 	self.DebuffHighlightBackdrop = true
@@ -128,33 +127,58 @@ local function Shared(self, unit)
 		local range = {insideAlpha = 1, outsideAlpha = C["unitframes"].raidalphaoor}
 		self.Range = range
 	end
+	
+	
+	local portraitbg = CreateFrame("Frame", nil, self)
+	portraitbg:SetTemplate("Default")
+	portraitbg:SetHeight(self:GetHeight())
+	portraitbg:SetWidth(self:GetHeight())
+	portraitbg:ClearAllPoints()
+	portraitbg:SetPoint("TOPRIGHT",self,"TOPLEFT",-2,0)
+	
+	local portrait = CreateFrame("PlayerModel", nil, portraitbg)
+	portrait:ClearAllPoints()
+	portrait:SetPoint("TOPLEFT", 1,1)
+	portrait:SetPoint("BOTTOMRIGHT",-1,1)
+    self.Portrait = portrait
 
+	local ReadyCheck = portrait:CreateTexture(nil, "OVERLAY")
+	ReadyCheck:Height(18*T.raidscale)
+	ReadyCheck:Width(18*T.raidscale)
+	ReadyCheck:SetPoint('CENTER')
+	self.ReadyCheck = ReadyCheck
+	
 	return self
 end
 
-oUF:RegisterStyle('TukuiDpsP05R10R15R25', Shared)
-oUF:Factory(function(self)
-	oUF:SetActiveStyle("TukuiDpsP05R10R15R25")
 
-	local raid = self:SpawnHeader("oUF_TukuiDpsRaid05101525", nil, "custom [@raid26,exists] hide;show", 
+oUF:RegisterStyle('TukuiDpsP05', Shared)
+oUF:Factory(function(self)
+	oUF:SetActiveStyle("TukuiDpsP05")
+
+	local raid = self:SpawnHeader("oUF_TukuiDpsP05", nil, "party", 
 		'oUF-initialConfigFunction', [[
 			local header = self:GetParent()
 			self:SetWidth(header:GetAttribute('initial-width'))
 			self:SetHeight(header:GetAttribute('initial-height'))
 		]],
-		'initial-width', T.Scale(120*T.raidscale),
-		'initial-height', T.Scale(16*T.raidscale),	
-		"showParty", false, "showPlayer", C["unitframes"].showplayerinparty, "showRaid", true, "groupFilter", "1,2,3,4,5,6,7,8", "groupingOrder", "1,2,3,4,5,6,7,8", "groupBy", "GROUP", "yOffset", T.Scale(-3)
+		'initial-width', T.Scale(120),
+		'initial-height', T.Scale(32),
+		"showParty", true, 
+		"showPlayer", C["unitframes"].showplayerinparty, 
+		"showRaid", false, 
+		"point", "BOTTOM",
+		"yOffset", T.Scale(12)
 	)
-	raid:SetPoint('TOPLEFT', UIParent, 15, -350*T.raidscale)
+	raid:SetPoint('BOTTOMLEFT', UIParent, 40, 320)
 	
 	local pets = {} 
-		pets[1] = oUF:Spawn('raidpet1', 'oUF_TukuiRaidPet1') 
-		pets[1]:SetPoint('TOPLEFT', raid, 'TOPLEFT', 0, -120*T.raidscale)
+		pets[1] = oUF:Spawn('partypet1', 'oUF_TukuiPartyPet1') 
+		pets[1]:SetPoint('BOTTOMLEFT', raid, 'TOPLEFT', 0, 20)
 		pets[1]:SetSize(T.Scale(120*T.raidscale), T.Scale(16*T.raidscale))
 	for i =2, 4 do 
-		pets[i] = oUF:Spawn('raidypet'..i, 'oUF_TukuiRaidPet'..i) 
-		pets[i]:SetPoint('TOP', pets[i-1], 'BOTTOM', 0, -8)
+		pets[i] = oUF:Spawn('partypet'..i, 'oUF_TukuiPartyPet'..i) 
+		pets[i]:SetPoint('BOTTOM', pets[i-1], 'TOP', 0, -8)
 		pets[i]:SetSize(T.Scale(120*T.raidscale), T.Scale(16*T.raidscale))
 	end
 	
@@ -171,18 +195,8 @@ oUF:Factory(function(self)
 			local numraid = GetNumRaidMembers()
 			local numparty = GetNumPartyMembers()
 			if numparty > 0 and numraid == 0 or numraid > 0 and numraid <= 5 then
-				raid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 15, -399*T.raidscale)
-				for i,v in ipairs(pets) do v:Disable() end
-			elseif numraid > 5 and numraid < 11 then
-				raid:SetPoint('TOPLEFT', UIParent, 15, -350*T.raidscale)
-				for i,v in ipairs(pets) do v:Disable() end
-			elseif numraid > 10 and numraid < 16 then
-				raid:SetPoint('TOPLEFT', UIParent, 15, -280*T.raidscale)
-				for i,v in ipairs(pets) do v:Disable() end
-			elseif numraid > 15 and numraid < 26 then
-				raid:SetPoint('TOPLEFT', UIParent, 15, -172*T.raidscale)
-				for i,v in ipairs(pets) do v:Disable() end
-			elseif numraid > 25 then
+				for i,v in ipairs(pets) do v:Enable() end
+			else
 				for i,v in ipairs(pets) do v:Disable() end
 			end
 		end

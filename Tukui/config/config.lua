@@ -38,7 +38,7 @@ C["unitframes"] = {
 
 	-- raid layout (if one of them is enabled)
 	["showrange"] = true,                               -- show range opacity on raidframes
-	["raidalphaoor"] = 0.3,                             -- alpha of unitframes when unit is out of range
+	["raidalphaoor"] = 0.5,                             -- alpha of unitframes when unit is out of range
 	["gridonly"] = true,                               -- enable grid only mode for all healer mode raid layout.
 	["showsymbols"] = true,	                            -- show symbol.
 	["aggro"] = true,                                   -- show aggro on all raids layouts
