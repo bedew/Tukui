@@ -149,11 +149,11 @@ oUF:Factory(function(self)
 	raid:SetPoint('TOPLEFT', UIParent, 15, -350*T.raidscale)
 	
 	local pets = {} 
-		pets[1] = oUF:Spawn('raidpet1', 'oUF_TukuiRaidPet1') 
+		pets[1] = oUF:Spawn('partypet1', 'oUF_TukuiRaidPet1') 
 		pets[1]:SetPoint('TOPLEFT', raid, 'TOPLEFT', 0, -120*T.raidscale)
 		pets[1]:SetSize(T.Scale(120*T.raidscale), T.Scale(16*T.raidscale))
 	for i =2, 4 do 
-		pets[i] = oUF:Spawn('raidypet'..i, 'oUF_TukuiRaidPet'..i) 
+		pets[i] = oUF:Spawn('partypet1'..i, 'oUF_TukuiRaidPet'..i) 
 		pets[i]:SetPoint('TOP', pets[i-1], 'BOTTOM', 0, -8)
 		pets[i]:SetSize(T.Scale(120*T.raidscale), T.Scale(16*T.raidscale))
 	end
