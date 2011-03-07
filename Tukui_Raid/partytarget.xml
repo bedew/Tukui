@@ -3,9 +3,9 @@
 		<Frames>
 			<Button name="$parentTarget" inherits="SecureUnitButtonTemplate">	
 				<Anchors>
-					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" relativeTo="$parent">
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeTo="$parent">
 						<Offset>
-							<AbsDimension x="0" y="5"/>
+							<AbsDimension x="14" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>

@@ -6,6 +6,8 @@
 ## X-Category: UnitFrame
 ## RequiredDeps: Tukui
 
+partytarget.xml
 oUF_Tukz_Party.lua
 oUF_Tukz_Raid01_25.lua
 oUF_Tukz_Raid40.lua
+
