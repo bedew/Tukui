@@ -86,15 +86,15 @@ LFDSearchStatus:SetTemplate("Default")
 local function UpdateLFGTooltip()
 	local position = TukuiMinimap:GetPoint()
 	LFDSearchStatus:ClearAllPoints()
-	if position:match("BOTTOMRIGHT") then
+	--if position:match("BOTTOMRIGHT") then
 		LFDSearchStatus:SetPoint("BOTTOMRIGHT", MiniMapLFGFrame, "BOTTOMLEFT", 0, 0)
-	elseif position:match("BOTTOM") then
-		LFDSearchStatus:SetPoint("BOTTOMLEFT", MiniMapLFGFrame, "BOTTOMRIGHT", 4, 0)
-	elseif position:match("LEFT") then		
-		LFDSearchStatus:SetPoint("TOPLEFT", MiniMapLFGFrame, "TOPRIGHT", 4, 0)
-	else
-		LFDSearchStatus:SetPoint("TOPRIGHT", MiniMapLFGFrame, "TOPLEFT", 0, 0)	
-	end
+	--elseif position:match("BOTTOM") then
+	--	LFDSearchStatus:SetPoint("BOTTOMLEFT", MiniMapLFGFrame, "BOTTOMRIGHT", 4, 0)
+	--elseif position:match("LEFT") then		
+	--	LFDSearchStatus:SetPoint("TOPLEFT", MiniMapLFGFrame, "TOPRIGHT", 4, 0)
+	--else
+	--	LFDSearchStatus:SetPoint("TOPRIGHT", MiniMapLFGFrame, "TOPLEFT", 0, 0)	
+	--end
 end
 
 -- Enable mouse scrolling

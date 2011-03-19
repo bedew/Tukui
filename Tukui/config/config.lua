@@ -45,7 +45,7 @@ C["unitframes"] = {
 	["raidunitdebuffwatch"] = true,                     -- track important spell to watch in pve for grid mode.
 	["gridhealthvertical"] = true,                      -- enable vertical grow on health bar for grid mode.
 	["showplayerinparty"] = false,                      -- show my player frame in party
-	["gridscale"] = 1,                                  -- set the healing grid scaling
+	["gridscale"] = 1.3,                                  -- set the healing grid scaling
 	
 	-- boss frames
 	["showboss"] = true,                                -- enable boss unit frames for PVELOL encounters.
